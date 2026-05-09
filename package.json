@@ -1,0 +1,19 @@
+{
+  "name": "mcp-discovery",
+  "version": "1.0.0",
+  "description": "MCP Discovery Tool - Discover and manage MCP servers",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --enable-logging"
+  },
+  "keywords": ["mcp", "model-context-protocol", "discovery"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}

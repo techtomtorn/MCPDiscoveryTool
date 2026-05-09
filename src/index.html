@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP Discovery Tool</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="toolbar">
+      <h1 class="toolbar-title">MCP Discovery Tool</h1>
+    </header>
+
+    <div class="main-container">
+      <div class="main-panel">
+        <div class="panel-header">
+          <h2>MCP Servers</h2>
+          <button id="btn-create" class="btn btn-primary">Create new</button>
+        </div>
+        <div class="table-container">
+          <table class="servers-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">No</th>
+                <th>MCP Server Name</th>
+                <th style="width: 100px;">Discover</th>
+                <th style="width: 80px;">Edit</th>
+                <th style="width: 80px;">Delete</th>
+              </tr>
+            </thead>
+            <tbody id="servers-tbody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <aside id="sidepanel" class="sidepanel hidden">
+        <h3 id="sidepanel-title">Create MCP Server</h3>
+        <div class="form-group">
+          <label for="server-name">MCP Server Name</label>
+          <input type="text" id="server-name" placeholder="Enter server name">
+        </div>
+        <div class="form-group">
+          <label for="server-config">MCP Server Config (JSON)</label>
+          <textarea id="server-config" rows="10" placeholder='{
+  "transport": "stdio",
+  "command": "node",
+  "args": ["server.js"]
+}'></textarea>
+          <button id="btn-load-config" class="btn btn-secondary">Load from disk</button>
+          <input type="file" id="file-input" accept=".json" class="hidden">
+        </div>
+        <div class="sidepanel-buttons">
+          <button id="btn-cancel" class="btn btn-secondary">Cancel</button>
+          <button id="btn-ok" class="btn btn-primary">OK</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div id="discovery-dialog" class="dialog hidden">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h2>MCP-Discovery</h2>
+        <button id="btn-close-dialog" class="btn-close">&times;</button>
+      </div>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="discover">Discover</button>
+        <button class="tab-btn" data-tab="documentation">Documentation</button>
+        <button class="tab-btn" data-tab="logs">Logs</button>
+      </div>
+      <div class="tab-content">
+        <div id="tab-discover" class="tab-panel active">
+          <div class="form-group">
+            <label>Title:</label>
+            <h3 id="discovery-title">MCP Discovery</h3>
+          </div>
+          <div class="form-group">
+            <label for="discovery-config">Config:</label>
+            <textarea id="discovery-config" rows="8" readonly></textarea>
+          </div>
+          <button id="btn-discover" class="btn btn-primary">Discover</button>
+        </div>
+        <div id="tab-documentation" class="tab-panel">
+          <textarea id="doc-content" rows="20" readonly></textarea>
+          <button id="btn-close-doc" class="btn btn-secondary">Close</button>
+        </div>
+        <div id="tab-logs" class="tab-panel">
+          <textarea id="log-content" rows="20" readonly></textarea>
+          <button id="btn-close-log" class="btn btn-secondary">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
