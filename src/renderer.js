@@ -137,7 +137,53 @@ async function openDiscovery(id) {
   const logContent = await window.mcpAPI.getLogs(id);
   document.getElementById('log-content').value = logContent || 'No logs available.';
 
+  const tools = await window.mcpAPI.getTools(id);
+  renderToolsList(tools || []);
+
   showDialog();
+}
+
+function renderToolsList(tools) {
+  const container = document.getElementById('tools-list');
+
+  if (!tools || tools.length === 0) {
+    container.innerHTML = '<div class="tools-empty">No tools discovered yet. Click "Discover" to find tools.</div>';
+    return;
+  }
+
+  container.innerHTML = tools.map((tool, index) => {
+    const params = (tool.inputSchema && tool.inputSchema.properties) ? Object.entries(tool.inputSchema.properties) : [];
+    const required = (tool.inputSchema && tool.inputSchema.required) || [];
+
+    let paramsHtml = '';
+    if (params.length > 0) {
+      paramsHtml = `
+        <div class="tool-params">
+          <div class="tool-params-title">Parameters:</div>
+          ${params.map(([name, prop]) => {
+            const type = prop.type || 'any';
+            const isReq = required.includes(name);
+            return `<div class="tool-param">
+              <span class="param-name">${escapeHtml(name)}</span>
+              <span class="param-type">${type}</span>
+              ${isReq ? '<span class="param-required">required</span>' : '<span class="param-optional">optional</span>'}
+              ${prop.description ? `<span class="param-desc">${escapeHtml(prop.description)}</span>` : ''}
+            </div>`;
+          }).join('')}
+        </div>`;
+    }
+
+    return `
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-index">#${index + 1}</span>
+          <span class="tool-name">${escapeHtml(tool.name)}</span>
+        </div>
+        ${tool.description ? `<div class="tool-description">${escapeHtml(tool.description)}</div>` : ''}
+        ${paramsHtml}
+      </div>
+    `;
+  }).join('');
 }
 
 async function startDiscovery() {
@@ -147,21 +193,41 @@ async function startDiscovery() {
   btn.disabled = true;
   btn.textContent = 'Discovering...';
 
+  const logTextarea = document.getElementById('log-content');
+  logTextarea.value = '';
+
+  switchTab('logs');
+
+  window.mcpAPI.onDiscoveryLog((data) => {
+    if (data.id === currentDiscoverServer.id) {
+      logTextarea.value += data.log + '\n';
+      logTextarea.scrollTop = logTextarea.scrollHeight;
+    }
+  });
+
   try {
     const results = await window.mcpAPI.discoverServer(currentDiscoverServer);
 
     document.getElementById('doc-content').value = results.documentation || 'Documentation generated successfully.';
 
-    const logContent = await window.mcpAPI.getLogs(currentDiscoverServer.id);
-    document.getElementById('log-content').value = logContent;
+    renderToolsList(results.tools || []);
 
-    switchTab('documentation');
-  } catch (error) {
-    alert(`Discovery failed: ${error.message}`);
     const logContent = await window.mcpAPI.getLogs(currentDiscoverServer.id);
-    document.getElementById('log-content').value = logContent;
+    logTextarea.value = logContent;
+    logTextarea.scrollTop = logTextarea.scrollHeight;
+
+    switchTab('discover');
+  } catch (error) {
+    const logContent = await window.mcpAPI.getLogs(currentDiscoverServer.id);
+    logTextarea.value = logContent;
+    logTextarea.scrollTop = logTextarea.scrollHeight;
+
+    renderToolsList([]);
+
+    alert(`Discovery failed: ${error.message}`);
     switchTab('logs');
   } finally {
+    window.mcpAPI.removeDiscoveryLogListener();
     btn.disabled = false;
     btn.textContent = 'Discover';
   }
@@ -210,6 +276,7 @@ function showDialog() {
 function hideDialog() {
   document.getElementById('discovery-dialog').classList.add('hidden');
   stopLogRefresh();
+  window.mcpAPI.removeDiscoveryLogListener();
   currentDiscoverServer = null;
 }
 

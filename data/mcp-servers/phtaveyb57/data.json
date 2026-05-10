@@ -1,0 +1,21 @@
+{
+  "id": "phtaveyb57",
+  "name": "filesystem",
+  "config": {
+    "transport": "http",
+    "url": "http://localhost:8307/mcp",
+    "enabled": true,
+    "command": "C:/Users/user/AppData/Roaming/npm/mcp-proxy.cmd",
+    "args": [
+      "--transport",
+      "httpStream",
+      "--port",
+      "8307",
+      "--",
+      "node",
+      "C:/wamp64/www/ozekiservices/agents/mcpservers/mcp-filesystem/dist/index.js",
+      "C:\\Work\\Video\\1\\"
+    ]
+  },
+  "createdAt": "2026-05-10T06:21:09.562Z"
+}

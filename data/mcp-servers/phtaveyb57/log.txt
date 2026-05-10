@@ -1,0 +1,103 @@
+[2026-05-10 07:34:25.750] [DISCOVERY] === MCP Server Discovery Started ===
+[2026-05-10 07:34:25.750] [DISCOVERY] Server name: filesystem
+[2026-05-10 07:34:25.750] [DISCOVERY] Server ID: phtaveyb57
+[2026-05-10 07:34:25.751] [CONFIG] Raw config: {
+  "transport": "http",
+  "url": "http://localhost:8307/mcp",
+  "enabled": true,
+  "command": "C:/Users/user/AppData/Roaming/npm/mcp-proxy.cmd",
+  "args": [
+    "--transport",
+    "httpStream",
+    "--port",
+    "8307",
+    "--",
+    "node",
+    "C:/wamp64/www/ozekiservices/agents/mcpservers/mcp-filesystem/dist/index.js",
+    "C:\\Work\\Video\\1\\"
+  ]
+}
+[2026-05-10 07:34:25.751] [CONFIG] Resolved config: {
+  "transport": "http",
+  "url": "http://localhost:8307/mcp",
+  "enabled": true,
+  "command": "C:/Users/user/AppData/Roaming/npm/mcp-proxy.cmd",
+  "args": [
+    "--transport",
+    "httpStream",
+    "--port",
+    "8307",
+    "--",
+    "node",
+    "C:/wamp64/www/ozekiservices/agents/mcpservers/mcp-filesystem/dist/index.js",
+    "C:\\Work\\Video\\1\\"
+  ],
+  "type": "http"
+}
+[2026-05-10 07:34:25.751] [TRANSPORT] Transport type: HTTP (Streamable HTTP)
+[2026-05-10 07:34:25.751] [TRANSPORT] URL: http://localhost:8307/mcp
+[2026-05-10 07:34:25.751] [TRANSPORT] Protocol: http:
+[2026-05-10 07:34:25.751] [TRANSPORT] Host: localhost:8307
+[2026-05-10 07:34:25.751] [TRANSPORT] Path: /mcp
+[2026-05-10 07:34:25.751] [STARTUP] HTTP server has a startup command - starting companion process...
+[2026-05-10 07:34:25.752] [STARTUP] Command: C:/Users/user/AppData/Roaming/npm/mcp-proxy.cmd --transport httpStream --port 8307 -- node C:/wamp64/www/ozekiservices/agents/mcpservers/mcp-filesystem/dist/index.js C:\Work\Video\1\
+[2026-05-10 07:34:25.752] [STARTUP] Shell mode: true
+[2026-05-10 07:34:25.752] [STARTUP] Spawning companion process...
+[2026-05-10 07:34:25.754] [STARTUP] Companion process started (PID: 7740)
+[2026-05-10 07:34:25.754] [STARTUP] Waiting for HTTP server at http://localhost:8307/mcp to become ready...
+[2026-05-10 07:34:26.051] [COMPANION-STDERR] Secure MCP Filesystem Server running on stdio
+[2026-05-10 07:34:26.058] [COMPANION-STDOUT] starting server on port 8307
+[2026-05-10 07:34:26.059] [COMPANION-STDERR] Client does not support MCP Roots, using allowed directories set from server args: [ 'C:\\Work\\Video\\1' ]
+[2026-05-10 07:34:26.259] [COMPANION-STDERR] [mcp-proxy] error parsing body SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at IncomingMessage.<anonymous> (file:///C:/Users/User/AppData/Roaming/npm/node_modules/mcp-proxy/dist/stdio-BGZrO8Rz.mjs:15868:20)
+    at IncomingMessage.emit (node:events:518:28)
+    at endReadableNT (node:internal/streams/readable:1698:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+[2026-05-10 07:34:26.261] [STARTUP] Companion process is ready - HTTP server is responding
+[2026-05-10 07:34:26.261] [CONNECT] Creating StreamableHTTPClientTransport...
+[2026-05-10 07:34:26.261] [CONNECT] Creating MCP Client...
+[2026-05-10 07:34:26.264] [CONNECT] Connecting to MCP server via HTTP...
+[2026-05-10 07:34:26.301] [CONNECT] Connected successfully in 37ms
+[2026-05-10 07:34:26.301] [HANDSHAKE] Server capabilities: {"tools":{"listChanged":true}}
+[2026-05-10 07:34:26.301] [HANDSHAKE] Server info: secure-filesystem-server v0.2.0
+[2026-05-10 07:34:26.301] [DISCOVERY] Requesting tools list (tools/list)...
+[2026-05-10 07:34:26.302] [COMPANION-STDOUT] [mcp-proxy] establishing new SSE stream for session ID 67608b82-9f7d-462f-9999-876ae15bab01
+[2026-05-10 07:34:26.328] [DISCOVERY] Received 14 tool(s) in 26ms
+[2026-05-10 07:34:26.328] [TOOL] [1/14] read_file - Read the complete contents of a file as text. DEPRECATED: Use read_text_file instead.
+[2026-05-10 07:34:26.328] [TOOL]   Parameters: path*, tail, head
+[2026-05-10 07:34:26.329] [TOOL] [2/14] read_text_file - Read the complete contents of a file from the file system as text. Handles various text encodings an
+[2026-05-10 07:34:26.329] [TOOL]   Parameters: path*, tail, head
+[2026-05-10 07:34:26.329] [TOOL] [3/14] read_media_file - Read an image or audio file. Returns the base64 encoded data and MIME type. Only works within allowe
+[2026-05-10 07:34:26.329] [TOOL]   Parameters: path*
+[2026-05-10 07:34:26.329] [TOOL] [4/14] read_multiple_files - Read the contents of multiple files simultaneously. This is more efficient than reading files one by
+[2026-05-10 07:34:26.329] [TOOL]   Parameters: paths*
+[2026-05-10 07:34:26.329] [TOOL] [5/14] write_file - Create a new file or completely overwrite an existing file with new content. Use with caution as it 
+[2026-05-10 07:34:26.329] [TOOL]   Parameters: path*, content*
+[2026-05-10 07:34:26.329] [TOOL] [6/14] edit_file - Make line-based edits to a text file. Each edit replaces exact line sequences with new content. Retu
+[2026-05-10 07:34:26.330] [TOOL]   Parameters: path*, edits*, dryRun
+[2026-05-10 07:34:26.330] [TOOL] [7/14] create_directory - Create a new directory or ensure a directory exists. Can create multiple nested directories in one o
+[2026-05-10 07:34:26.330] [TOOL]   Parameters: path*
+[2026-05-10 07:34:26.330] [TOOL] [8/14] list_directory - Get a detailed listing of all files and directories in a specified path. Results clearly distinguish
+[2026-05-10 07:34:26.330] [TOOL]   Parameters: path*
+[2026-05-10 07:34:26.330] [TOOL] [9/14] list_directory_with_sizes - Get a detailed listing of all files and directories in a specified path, including sizes. Results cl
+[2026-05-10 07:34:26.330] [TOOL]   Parameters: path*, sortBy
+[2026-05-10 07:34:26.330] [TOOL] [10/14] directory_tree - Get a recursive tree view of files and directories as a JSON structure. Each entry includes 'name', 
+[2026-05-10 07:34:26.330] [TOOL]   Parameters: path*, excludePatterns
+[2026-05-10 07:34:26.330] [TOOL] [11/14] move_file - Move or rename files and directories. Can move files between directories and rename them in a single
+[2026-05-10 07:34:26.330] [TOOL]   Parameters: source*, destination*
+[2026-05-10 07:34:26.331] [TOOL] [12/14] search_files - Recursively search for files and directories matching a pattern. The patterns should be glob-style p
+[2026-05-10 07:34:26.331] [TOOL]   Parameters: path*, pattern*, excludePatterns
+[2026-05-10 07:34:26.331] [TOOL] [13/14] get_file_info - Retrieve detailed metadata about a file or directory. Returns comprehensive information including si
+[2026-05-10 07:34:26.331] [TOOL]   Parameters: path*
+[2026-05-10 07:34:26.331] [TOOL] [14/14] list_allowed_directories - Returns the list of directories that this server is allowed to access. Subdirectories within these a
+[2026-05-10 07:34:26.331] [TOOL]   Parameters: none
+[2026-05-10 07:34:26.332] [DISCOVERY] Generated documentation
+[2026-05-10 07:34:26.333] [DISCOVERY] Saved documentation to readme.md
+[2026-05-10 07:34:26.334] [DISCOVERY] Saved tools data to tools.json
+[2026-05-10 07:34:26.334] [DISCOVERY] === Discovery Completed Successfully ===
+[2026-05-10 07:34:26.334] [CLEANUP] Closing MCP client connection...
+[2026-05-10 07:34:26.336] [CLEANUP] MCP client connection closed
+[2026-05-10 07:34:26.336] [CLEANUP] Stopping companion process...
+[2026-05-10 07:34:26.337] [CLEANUP] Companion process stopped
+[2026-05-10 07:34:26.338] [COMPANION-EXIT] Companion process killed by signal SIGTERM

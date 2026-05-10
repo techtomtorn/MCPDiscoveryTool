@@ -7,5 +7,12 @@ contextBridge.exposeInMainWorld('mcpAPI', {
   deleteServer: (id) => ipcRenderer.invoke('delete-server', id),
   discoverServer: (server) => ipcRenderer.invoke('discover-server', server),
   getLogs: (id) => ipcRenderer.invoke('get-logs', id),
-  getReadme: (id) => ipcRenderer.invoke('get-readme', id)
+  getReadme: (id) => ipcRenderer.invoke('get-readme', id),
+  getTools: (id) => ipcRenderer.invoke('get-tools', id),
+  onDiscoveryLog: (callback) => {
+    ipcRenderer.on('discovery-log', (event, data) => callback(data));
+  },
+  removeDiscoveryLogListener: () => {
+    ipcRenderer.removeAllListeners('discovery-log');
+  }
 });
